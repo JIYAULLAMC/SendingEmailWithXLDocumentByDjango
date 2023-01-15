@@ -1,0 +1,83 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}Buy Now{% endblock title %}
+{% block main-content %}
+<div class="container my-5">
+ <div class="row">
+ <h3>Welcome {{request.user}}</h3>
+ 
+ <div class="col-sm-2 border-end">
+     <ul class="list-unstyled">
+         <li class="d-grid"><a href="{% url 'orders' %}" class="btn btn-primary">Orders</a></li>
+        </ul>
+    </div>
+    <div class="col-sm-9 offset-sm-1">
+        {% for order in orders %}
+        <div class="row">
+         <div class="col-sm-3 text-center align-self-center"><img src={{ order.product.product_image.url }} alt="" srcset="" class="img-fluid img-thumbnail shadow-sm" height="250 width="250"> </div>
+         <div class="col-sm-9">
+          <div>
+           <h6 class="sm">Product Name: {{ order.product.title }}</h6>
+           <p class="sm">Product Quantity : {{order.quantity}}</p>
+           <p class="sm">Product Cost : {{order.product.selling_price}}</p>
+           
+          
+           <div class="">
+            <div class="">
+                {% if order.status == 'Accepted' %}
+                <div>
+                    Status {{order.status}} 
+                </div>
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" style="width: 20%" area-valuenow="20" area-valuemin="0" area-valuemax="100"></div>
+                </div>
+                {% endif %}
+
+                {% if order.status == 'Packed' %}
+                <div>
+                    Status : {{order.status}}  
+                </div>
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" style="width: 60%" area-valuenow="60" area-valuemin="0" area-valuemax="100"></div>
+                </div>
+                {% endif %}
+
+                {% if order.status == 'On The Way' %}
+                <div>
+                    Status {{order.status}}
+                </div>
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" style="width: 80%" area-valuenow="80" area-valuemin="0" area-valuemax="100"></div>
+                </div>
+                {% endif %}
+
+                {% if order.status == 'Deliverd' %}
+                <div>
+                    Status {{order.status}} 
+                </div>
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" style="width: 100%" area-valuenow="100" area-valuemin="0" area-valuemax="100"></div>
+                </div>
+                {% endif %}
+
+                {% if order.status == 'Cancel' %}
+                <div>
+                    Status {{order.status}}
+                </div>
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" style="width: 0%" area-valuenow="0" area-valuemin="0" area-valuemax="100"></div>
+                </div>
+                {% endif %}
+             
+            </div>
+           </div> 
+          </div>
+         </div>
+        </div>
+        <hr class="text-muted">
+        {% endfor %}
+        
+    </div>
+</div>
+</div>
+{% endblock main-content %}
